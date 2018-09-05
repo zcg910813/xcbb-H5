@@ -3,36 +3,49 @@
         <div class="banner">欢迎来到小草播播！</div>
         <mySwiper></mySwiper>
         <ul class="listBox">
-            <li class="listItem">
+            <li>
                 <img src="@/assets/img/photo.png" alt="">
+                <span>猫小七</span><br>
                 <b>小七</b><i>5251人</i>
             </li>
-            <li class="listItem">
+            <li>
                 <img src="@/assets/img/photo.png" alt="">
+                <span>猫小七</span><br>
                 <b>小七</b><i>5251人</i>
             </li>
-            <li class="listItem">
+            <li>
                 <img src="@/assets/img/photo.png" alt="">
+                <span>猫小七</span><br>
                 <b>小七</b><i>5251人</i>
             </li>
-            <li class="listItem">
+            <li>
                 <img src="@/assets/img/photo.png" alt="">
+                <span>猫小七</span><br>
                 <b>小七</b><i>5251人</i>
             </li>
-            <li class="listItem">
+            <li>
                 <img src="@/assets/img/photo.png" alt="">
+                <span>猫小七</span><br>
                 <b>小七</b><i>5251人</i>
             </li>
-            <li class="listItem">
+            <li>
                 <img src="@/assets/img/photo.png" alt="">
+                <span>猫小七</span><br>
                 <b>小七</b><i>5251人</i>
             </li>
-            <li class="listItem">
+            <li>
                 <img src="@/assets/img/photo.png" alt="">
+                <span>猫小七</span><br>
                 <b>小七</b><i>5251人</i>
             </li>
-            <li class="listItem">
+            <li>
                 <img src="@/assets/img/photo.png" alt="">
+                <span>猫小七</span><br>
+                <b>小七</b><i>5251人</i>
+            </li>
+            <li>
+                <img src="@/assets/img/photo.png" alt="">
+                <span>猫小七</span><br>
                 <b>小七</b><i>5251人</i>
             </li>
         </ul>
@@ -76,10 +89,16 @@
 .listBox li{
     float:left;
     width: 4.933333rem /* 370/75 */;
-    height: 5.4rem /* 405/75 */;
+    height: 5.933333rem /* 445/75 */;
     color:white;
     margin-right: .066667rem /* 5/75 */;
     margin-bottom: .066667rem /* 5/75 */;
+}
+.listBox span{
+    height: .533333rem /* 40/75 */;
+    line-height: .533333rem /* 40/75 */;
+    font-size: .466667rem /* 35/75 */;
+    color:rgb(108,108,158);
 }
 .listBox li img{
     width: 4.933333rem /* 370/75 */;

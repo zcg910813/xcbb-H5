@@ -48,7 +48,7 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 1000;
+    /* z-index: 900; */
   }
   .tabBar{
     position: fixed;
@@ -59,7 +59,7 @@ export default {
     background-image: url('assets/img/userbkbj.png');
     background-size: 100% 100%;
     overflow: hidden;
-    z-index: 1000;
+    /* z-index: 900; */
   }
   .tabBar li{
     float: left;

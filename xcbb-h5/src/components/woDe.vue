@@ -6,7 +6,7 @@
                     <img src="" alt="">
                 </div>
             </div>
-            <router-link to="">
+            <router-link to="/setInfo">
                     <img src="@/assets/img/编辑ibt-拷贝@2x.png" alt="">
             </router-link>
         </div>
@@ -35,7 +35,7 @@
             </li>
         </ul>
         <div class="kongBox"></div>
-        <div class="jinbi">
+        <div class="jinbi" @click="jinBi">
             <div>金币</div>
             <ul>
                 <li>
@@ -55,7 +55,23 @@
 
 <script>
     export default{
+        data(){
+            return {
 
+            }
+        },
+        created(){
+
+        },
+        methods:{
+            //点击金币进入充值页面
+            jinBi(){
+                this.$router.push({
+                    name:"toPay",
+                    params:{}
+                })
+            }
+        }
     }
 </script>
 

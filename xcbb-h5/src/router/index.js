@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import liveList from '@/components/liveList'
 import liveRoom from '@/components/liveRoom'
 import woDe from '@/components/woDe'
+import setInfo from '@/components/setInfo'
+import toPay from '@/components/toPay'
 
 Vue.use(Router)
 
@@ -23,6 +25,16 @@ export default new Router({
       path: '/woDe',
       name: 'woDe',
       component: woDe
+    },
+    {
+      path: '/setInfo',
+      name: 'setInfo',
+      component: setInfo
+    },
+    {
+      path: '/toPay',
+      name: 'toPay',
+      component: toPay
     }
   ]
 })
