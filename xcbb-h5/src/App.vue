@@ -22,6 +22,7 @@
 <script>
 import liveList from '@/components/liveList'
 import woDe from '@/components/woDe'
+import zbRoom from '@/components/zbRoom'
 export default {
   name: 'App',
   data(){
@@ -32,7 +33,7 @@ export default {
   created() {
     
   },
-  components:{woDe,liveList}
+  components:{woDe,liveList,zbRoom}
 }
 </script>
 

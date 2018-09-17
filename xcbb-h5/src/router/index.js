@@ -6,6 +6,7 @@ import liveRoom from '@/components/liveRoom'
 import woDe from '@/components/woDe'
 import setInfo from '@/components/setInfo'
 import toPay from '@/components/toPay'
+import zbRoom from '@/components/zbRoom'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/toPay',
       name: 'toPay',
       component: toPay
+    },
+    {
+      path: '/zbRoom',
+      name: 'zbRoom',
+      component: zbRoom
     }
   ]
 })

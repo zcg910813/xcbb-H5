@@ -26,6 +26,25 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
                 }
             }
         },
+        created(){
+            //请求首页banner接口
+            let that = this;
+            that.$http.get("/api/xcbb_web/mobile/api/headlines/findStartupOrBanner",{
+                    params:{
+                        uid: "20264733",     //20264733
+                        token:"TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA==" ,   //"TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA==  ",
+                        flag: 2 
+                    }
+                }
+            )
+            .then(res=>{
+                // console.log("banner图=>")
+                // console.log(res.data)
+            })
+            .catch(res=>{
+                console.log(res)
+            });
+        },
         components:{swiper, swiperSlide}
     }
 </script>
