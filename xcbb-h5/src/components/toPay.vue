@@ -72,7 +72,8 @@ export default {
     z-index: 1000;
     width: 10rem;
     height: 100%;
-    background: linear-gradient(to bottom,rgb(39,32,69), rgb(21,17,35));  
+    background: linear-gradient(to bottom,rgb(39,32,69), rgb(21,17,35)); 
+    top:0; 
 }
 .userInfo{
     width: 10rem;

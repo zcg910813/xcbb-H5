@@ -1,8 +1,9 @@
 <template>
     <div class="liveList">
         <div class="banner">欢迎来到小草播播！</div>
-        <mySwiper></mySwiper>
+        
         <ul class="listBox">
+            <mySwiper></mySwiper>
             <li v-for="(item,index) in zhuboList" :key="index" @click="toZbroom(index)"> 
                 <img :src="'http://image.xcbobo.com/PubImgSour/'+item.photo+'.png'" alt="">
                 <span>{{item.zbname}}</span><br>
@@ -42,6 +43,33 @@
             // .catch(res=>{
             //     console.log(res)
             // })
+            
+            //获取websocket连接地址
+            // that.$http.post('/api/xcbb_web/weixin/miniProgram/liveRoomAddreeInfo?uid="20264733"&token="TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA=="',{
+            //     // params:{
+            //     //     uid: "20264733", 
+            //     //     token: "TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA==" ,   //"TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA==  "
+            //     // }
+            // }).then(res=>{
+            //     console.log(res)
+            // })
+
+            let wsIp={
+                "success": true,
+                "hall": "59.110.125.134:30000",
+                "websocket": "mq.xiuktv.com:10443"
+            }
+            //创建websocket长连接
+            let ws = new WebSocket("wss://mq.xiuktv.com:10443/ws?host=59.110.125.134&port=30000")
+            ws.onopen = function(){
+                console.log("连接已成功");
+                ws.send("你好,c++服务器！")
+            }
+            ws.addEventListener("message", function(event) {
+                var data = event.data;
+                console.log(data)
+                // 处理数据
+            });
 
             //请求热门主播列表
             that.$http.post('/api/xcbb_web/mobileLive/searchRecentUserLiveResult?uid=90000146&token=T1RBd01EQXhORGJDcDI1Nk4yRnZlbVJ1ZUhjeE5USXdNekkyTmpVeE9ESTR3cWN4TlRNME1UUTROVFU1TnpBeQ==&sex=1&province=beijing&type=3&packageName=release&version=1.4.11&channel=dev&clientType=2&page=1&pageSize=16',
@@ -57,7 +85,7 @@
             .then(res=>{
                 // console.log("热门主播列表=>")
                 that.zhuboList = res.data.list;
-                // console.log(that.zhuboList)
+                // console.log(res)
             })
             .catch(res=>{
                 console.log(res)
@@ -68,8 +96,7 @@
               let that = this;
             //   console.log(index)
             //   console.log(that.zhuboList)
-
-              //点击事件触发后获取当前主播直播间
+            //点击事件触发后获取当前主播直播间
               for(let i=0;i<that.zhuboList.length;i++){
                   if(index==i){
                     //   console.log(that.zhuboList[i]);
@@ -106,6 +133,7 @@
 .listBox{
     width: 10rem;
     margin-top:.133333rem /* 10/75 */;
+    padding-bottom: 1rem;
     height: 14.666667rem /* 1100/75 */;
     overflow: scroll;
 }
