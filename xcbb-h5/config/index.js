@@ -11,17 +11,17 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api':{
-        target:"https://www.xcbobo.com/",//需要请求的第三方接口
-        changeOrigin:true,
-        pathRewrite:{ //路径重写
-          "^/api":"/"
-        }
-      }
+      // '/api':{
+      //   target:"https://www.xcbobo.com/",//需要请求的第三方接口
+      //   changeOrigin:true,
+      //   pathRewrite:{ //路径重写
+      //     "^/api":"/"
+      //   }
+      // }
     },
 
     // Various Dev Server settings
-    host: '192.168.10.82' ,//'192.168.11.139', // can be overwritten by process.env.HOST
+    host: 'localhost' ,//'192.168.11.139', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
@@ -51,7 +51,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

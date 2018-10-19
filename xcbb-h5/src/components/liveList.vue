@@ -1,6 +1,6 @@
 <template>
     <div class="liveList">
-        <div class="banner">欢迎来到小草播播！</div>
+        <!-- <div class="banner">欢迎来到小草播播！</div> -->
         
         <ul class="listBox">
             <mySwiper></mySwiper>
@@ -19,7 +19,8 @@
 </template>
 
 <script>
-    import mySwiper from '@/components/mySwiper'
+    import {strToArray,transform_u8,headPacking,typeConvert,untieHead} from "@/js/socket"; 
+    import mySwiper from '@/components/mySwiper';       
     export default{
         data(){
             return {
@@ -63,16 +64,50 @@
             let ws = new WebSocket("wss://mq.xiuktv.com:10443/ws?host=59.110.125.134&port=30000")
             ws.onopen = function(){
                 console.log("连接已成功");
-                ws.send("你好,c++服务器！")
+
+                let message = headPacking(23,1,0,200,0)
+                // let l = strToArray().StringToUint32Array(23)
+                // let h = strToArray().StringToUint32Array(1);
+                // let u = strToArray().StringToUint16Array(0);
+                // let r = strToArray().StringToUint16Array(200);
+                // let t =  strToArray().StringToUint8Array(0);
+                // let a = strToArray().StringToUint32Array(200811040);
+                // let b = strToArray().StringToUint32Array(5295391642);
+                // let c = strToArray().StringToUint16Array(4);
+                // let messageData = [];
+                // let message1 =new Uint8Array(messageData.concat(l,h,u,r,t,a,b,c)) ;
+
+                // console.log(message1);
+
+                
+                ws.send(message);
             }
-            ws.addEventListener("message", function(event) {
-                var data = event.data;
-                console.log(data)
-                // 处理数据
+            ws.addEventListener("message", function(res) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var arrbuffer = e.target.result;
+                    untieHead(arrbuffer,function(res){
+                        console.log(res)
+                    })
+                   var strlength = typeConvert(arrbuffer).u16(13);
+                   var strneirong = new Uint8Array(arrbuffer,15,strlength);
+                   console.log(strlength)
+                   typeConvert(arrbuffer).Uint8ArrayToString(strneirong,function(res){
+                        console.log(res)
+                   })
+                  console.log(typeConvert(arrbuffer).u16(33,2,function(res){
+                    console.log(res)
+                  }))                    
+                    // console.log('affbufer',arrbuffer)
+                }; 
+                reader.readAsArrayBuffer(res.data);
+
+                
+                // // 处理数据
             });
 
             //请求热门主播列表
-            that.$http.post('/api/xcbb_web/mobileLive/searchRecentUserLiveResult?uid=90000146&token=T1RBd01EQXhORGJDcDI1Nk4yRnZlbVJ1ZUhjeE5USXdNekkyTmpVeE9ESTR3cWN4TlRNME1UUTROVFU1TnpBeQ==&sex=1&province=beijing&type=3&packageName=release&version=1.4.11&channel=dev&clientType=2&page=1&pageSize=16',
+            that.$http.post('../xcbb_web/mobileLive/searchRecentUserLiveResult?uid=90000146&token=T1RBd01EQXhORGJDcDI1Nk4yRnZlbVJ1ZUhjeE5USXdNekkyTmpVeE9ESTR3cWN4TlRNME1UUTROVFU1TnpBeQ==&sex=1&province=beijing&type=3&packageName=release&version=1.4.11&channel=dev&clientType=2&page=1&pageSize=16',
                 //"/api/xcbb_web/mobileLive/tabHot?packageName=release&clientType=2&token=T1RBd01EQXhORGJDcDI1Nk4yRnZlbVJ1ZUhjeE5USXdNekkyTmpVeE9ESTR3cWN4TlRNME1UUTROVFU1TnpBeQ==&version=1.4.11&uid=90000146&channel=dev&page=1&pageSize=20",
                 {
                     // params:{

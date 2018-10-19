@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import './css/mian.css'
 import './js/flexible'
+import './js/socket'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
 
@@ -18,6 +19,10 @@ require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 import 'videojs-contrib-hls'
 Vue.use(VideoPlayer);
+
+//剪切板功能
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 
 Vue.prototype.$http= axios;
 
