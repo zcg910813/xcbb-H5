@@ -1,12 +1,12 @@
 <template>
     <swiper :options="swiperOption" ref="mySwiper">
-    <!-- slides -->
-    <swiper-slide> <img src="@/assets/img/notice1.jpg" alt=""> </swiper-slide>
-    <swiper-slide> <img src="@/assets/img/notice2.jpg" alt=""></swiper-slide>
-    <swiper-slide> <img src="@/assets/img/notice3.png" alt=""></swiper-slide>
-    <!-- Optional controls -->
-    <div class="swiper-pagination"  slot="pagination"></div>
-</swiper>
+        <!-- slides -->
+        <swiper-slide> <img src="@/assets/img/notice1.jpg" alt=""> </swiper-slide>
+        <swiper-slide> <img src="@/assets/img/notice2.jpg" alt=""></swiper-slide>
+        <swiper-slide> <img src="@/assets/img/notice3.png" alt=""></swiper-slide>
+        <!-- Optional controls -->
+        <div class="swiper-pagination"  slot="pagination"></div>
+    </swiper>
 </template>
 
 <script>
@@ -53,8 +53,10 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
     .swiper-container {
         width: 100%;
         height: 2rem /* 150/75 */;
+        z-index: 1
     }
     .swiper-container img{
         width: 10rem /* 750/75 */;
     }
+   
 </style>

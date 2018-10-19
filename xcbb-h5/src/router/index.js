@@ -29,12 +29,7 @@ export default new Router({
     {
       path: '/zbRoom',
       name: 'zbRoom',
-      component: zbRoom,
-      children:[{
-        path: '/toPay',
-        name: 'toPay',
-        component: toPay
-      }]
+      component: zbRoom
     }
   ]
 })

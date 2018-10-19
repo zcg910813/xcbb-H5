@@ -1,68 +1,76 @@
 <template>
-    <div class="toPay">
+    <div class="toPay" v-show="isChonghzi">
         <div class="userInfo">
             <p>
-                <img src="" alt="">
+                <img :src="'http://www.xiuktv.com/PubImgSour/'+photo+'.png'" alt="">
             </p>
-            <span>百里龙吟</span><br>
+            <span>{{nick}}</span><br>
             <i>余额：</i>
-            <b> 197金币</b>
+            <b> {{goodsData.coin_balance}}金币</b>
         </div>
         <div class="jiageList">
             <p>选择充值金额：</p>
             <ul>
-                <li>
+                <li v-for="(item,index) in goodsData.goodsList" :key="index" >
+                    <b>{{item.goods_name}}</b><br>
+                    <i>{{item.price}}元</i>
+                </li>
+                <!-- <li>
                     <b>200金币</b><br>
                     <i>2元</i>
-                </li>
-                <li>
-                    <b>200金币</b><br>
-                    <i>2元</i>
-                </li>
-                <li>
-                    <b>200金币</b><br>
-                    <i>2元</i>
-                </li>
-                <li>
-                    <b>200金币</b><br>
-                    <i>2元</i>
-                </li>
-                <li>
-                    <b>200金币</b><br>
-                    <i>2元</i>
-                </li>
-                <li>
-                    <b>200金币</b><br>
-                    <i>2元</i>
-                </li>
-                <li>
-                    <b>200金币</b><br>
-                    <i>2元</i>
-                </li>
-                <li>
-                    <b>200金币</b><br>
-                    <i>2元</i>
-                </li>
-                <li>
-                    <b>200金币</b><br>
-                    <i>2元</i>
-                </li>
-                <li>
-                    <b>200金币</b><br>
-                    <i>2元</i>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div class="payBtn">
             <button>充值</button><br>
             <span>如有问题，请联系QQ客服：3061680386</span>
         </div>
+        <div class="fanhui" @click="offPay">
+            &lt;
+        </div>
     </div>
 </template>
 
 <script>
+import zbRoom from "@/components/zbRoom"
+import zbRoomVue from './zbRoom.vue';
+import AppVue from '../App.vue';
 export default {
-    
+    data(){
+        return{
+            isChonghzi:true,
+            photo:null,
+            nick:"",
+            goodsData:null,
+        }
+    },
+    created(){
+        let that = this;
+        let goodsListUrl = AppVue.data().baesUrl+"xcbb_web/business/mobile/billing/list/goods"
+        that.nick = AppVue.userInfo.nick
+        that.photo = AppVue.userInfo.photo
+        console.log(goodsListUrl);
+        this.$http.get(goodsListUrl,{
+            params:{
+                uid:10000022,
+                token:'TVRBd01EQXdNakxDcDJ0ck4yb3pZbXhuTW1NeE5EazBPVEUwTURFNE1UWTJ3cWN4TlRReE56UXpNVEk0TlRFMQ==',
+                platform:1,
+            }
+        }).then((res)=>{
+            // console.log(res.data);
+            that.goodsData = res.data;
+        }).catch((res)=>{
+
+        })
+    },
+    methods:{
+        offPay(){
+            let toPay = document.getElementsByClassName("toPay");
+            toPay[0].style.display = "none"
+            this.isChonghzi = false;
+        },
+    },
+    components:{zbRoom}
 }
 </script>
 
@@ -93,6 +101,10 @@ export default {
     background: #f90;
     margin: 0 auto;
     margin-bottom: .2rem /* 15/75 */;
+    overflow: hidden;
+}
+.userInfo p img{
+    width: 1.4rem /* 105/75 */;
 }
 .userInfo span{
     display: inline-block;
@@ -176,5 +188,15 @@ export default {
     text-align: center;
     font-size:.4rem /* 30/75 */;
     color:rgb(147,129,122);
+}
+.fanhui{
+    position: fixed;
+    top: .4rem /* 30/75 */;
+    left: .666667rem /* 50/75 */;
+    width: .666667rem /* 50/75 */;
+    height: .666667rem /* 50/75 */;
+    line-height: .666667rem /* 50/75 */;
+    font-size: .666667rem /* 50/75 */;
+    color:#fff;
 }
 </style>

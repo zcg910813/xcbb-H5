@@ -3,36 +3,37 @@
         <div class="kong"></div>
         <ul >
             <li class="title">头像</li>
-            <li id="touxiang"><img class="touxiang" src="" alt=""></li>
+            <li id="touxiang"><img class="touxiang" :src="'http://www.xiuktv.com/PubImgSour/'+userInfo.photo+'.png'" alt=""></li>
             <li><img class="jiantouR" src="@/assets/img/右箭头@2x.png" alt=""></li>    
         </ul>
         <ul class="marginT">
             <li class="title">昵称</li>
-            <li class="info">弹吉他的程序猿</li>
+            <li class="info">{{userInfo.nick}}</li>
             <li><img class="jiantouR" src="@/assets/img/右箭头@2x.png" alt=""></li>    
         </ul>
         <ul>
             <li class="title">用户ID</li>
-            <li  class="info">978234923823498</li>    
+            <li  class="info">{{userInfo.uid}}</li>    
         </ul>
         <ul>
             <li class="title">性别</li>
-            <li class="info">男生</li>
+            <li class="info" v-if="userInfo.sex==0">男生</li>
+            <li class="info" v-else>女生</li>
             <li><img class="jiantouR" src="@/assets/img/右箭头@2x.png" alt=""></li>    
         </ul>
         <ul>
             <li class="title">年龄</li>
-            <li class="info">26  处女座</li>
+            <li class="info">{{userInfo.age}}</li>
             <li><img class="jiantouR" src="@/assets/img/右箭头@2x.png" alt=""></li>    
         </ul>
         <ul>
             <li class="title">家乡</li>
-            <li class="info">宁夏吴忠</li>
+            <li class="info">{{userInfo.city}}</li>
             <li><img class="jiantouR" src="@/assets/img/右箭头@2x.png" alt=""></li>    
         </ul>
         <ul>
             <li class="title">签名</li>
-            <li class="info">我就是我，独一无二！</li>
+            <li class="info">{{userInfo.sign}}</li>
             <li><img class="jiantouR" src="@/assets/img/右箭头@2x.png" alt=""></li>    
         </ul>
     </div>
@@ -40,7 +41,17 @@
 
 <script>
     export default{
-
+        data(){
+            return {
+                userInfo:this.$route.params.userInfo,
+            }
+        },
+        beforeCreate(){
+            let that = this;
+        },
+        methods:{
+            
+        }
     }
 </script>
 
@@ -67,6 +78,10 @@
     margin-left:5.333333rem /* 400/75 */;
     margin-top: .133333rem /* 10/75 */;
     margin-right: .2rem /* 15/75 */;
+    overflow: hidden;
+}
+#touxiang img{
+    width: .8rem /* 60/75 */;
 }
 .setInfo ul{
     width: 10rem;

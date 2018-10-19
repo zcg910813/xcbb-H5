@@ -3,16 +3,16 @@
         <div class="infoItem">
             <div class="photo">
                 <div>
-                    <img src="" alt="">
+                    <img :src="'http://www.xiuktv.com/PubImgSour/'+userInfo.photo+'.png'" alt="">
                 </div>
             </div>
-            <router-link to="/setInfo">
+            <span @click="userInfoChange">
                     <img src="@/assets/img/编辑ibt-拷贝@2x.png" alt="">
-            </router-link>
+            </span>
         </div>
         <div class="nick">
-            <b><这个杀手太猛></b>
-            <i>斯嘉丽约翰逊</i>
+            <b>&lt;{{userInfo.guild}}&gt;</b>
+            <i>{{userInfo.nick}}</i>
             <span></span>
         </div>
         <div class="jinduTiao">
@@ -22,24 +22,24 @@
             <img class="xiangqing" src="@/assets/img/详情@2x.png" alt="">
             <img class="shenfen" src="@/assets/img/壕@2x.png" alt="">
         </div>
-        <div class="xcId">小草ID:4685/5633</div>
-        <div class="liuyan">这家伙很懒，什么也没留下</div>
+        <div class="xcId">小草ID:{{userInfo.uid}}</div>
+        <div class="liuyan">{{userInfo.sign}}</div>
         <ul class="redu">
             <li class="guanzhu borderRight">
-                <b>8888</b><br>
+                <b>{{guanZhuNum}}</b><br>
                 <i>关注</i>
             </li>
             <li class="fensi">
-                <b>6666</b><br>
+                <b>{{fenSiNum}}</b><br>
                 <i>粉丝</i>
             </li>
         </ul>
         <div class="kongBox"></div>
-        <div class="jinbi" @click="jinBi">
+        <div class="jinbi" >
             <div>金币</div>
             <ul>
                 <li>
-                    <span>3000</span>
+                    {{jinBiNum}}
                 </li>
                 <li>
                     <img src="@/assets/img/金币@2x.png" alt="">
@@ -55,20 +55,46 @@
 
 <script>
     export default{
-        data(){
+        data () {
             return {
-
+                userInfo: null,
+                guanZhuNum:null,
+                fenSiNum:null,
+                jinBiNum:null,
             }
         },
         created(){
-
+            let that = this;
+            //获取我的tab数据
+            let qs = require("qs");
+            that.$http.post("/api/xcbb_web/business/mobile/api/getinfo",
+                qs.stringify({ 
+                    'uid': 10000022,
+                    "token":'TVRBd01EQXdNakxDcDJ0ck4yb3pZbXhuTW1NeE5EazBPVEUwTURFNE1UWTJ3cWN4TlRReE56UXpNVEk0TlRFMQ=='
+                })
+            ).then(res=>{
+                that.userInfo = res.data.userInfo;
+                that.guanZhuNum = res.data.followTotal;
+                that.fenSiNum = res.data.useFinsTotal;
+                that.jinBiNum = res.data.jinbiamount;
+                if(res.data.userInfo.sign == ""){
+                    that.userInfo.sign = "这家伙很懒，什么也没留下"
+                }
+                console.log(res.data);
+            }).catch(res=>{
+                console.log(res.data);
+            })
         },
         methods:{
             //点击金币进入充值页面
             jinBi(){
+            },
+            userInfoChange(){
                 this.$router.push({
-                    name:"toPay",
-                    params:{}
+                    name:"setInfo",
+                    params:{
+                        userInfo:this.userInfo
+                    }
                 })
             }
         }
@@ -79,7 +105,6 @@
 .setInfo{
     margin-top:1.2rem /* 90/75 */;
     width: 10rem;
-    height: 15.4rem /* 1155/75 */;
     background:  linear-gradient(rgb(36,29,55), rgb(24,21,39));
 }
 .infoItem{
@@ -106,15 +131,19 @@
     border-radius: 50%;
     margin:.066667rem /* 5/75 */ auto;
     background: #f90;
+    overflow: hidden;
 }
-.infoItem a{
+.photo div img{
+    width: 1.333333rem /* 100/75 */;
+}
+.infoItem span{
     display: block;
     width: .506667rem /* 38/75 */;
     height: .506667rem /* 38/75 */;
     position: relative;
     left: 6.2rem /* 465/75 */;
 }
-.infoItem a img{
+.infoItem span img{
     width: .506667rem /* 38/75 */;
 }
 .nick{
@@ -226,22 +255,24 @@
     color:#b4b4ff;
 }
 .jinbi ul{
-    width: 2.266667rem /* 170/75 */;
+    /* width: 2.266667rem 170/75; */
     color:#beaa78;
     font-size:.373333rem /* 28/75 */;
-    margin-left:6.666667rem /* 500/75 */;
+    margin-left:5.333333rem /* 400/75 */;
 }
 .jinbi ul li{
     height: 1.173333rem /* 88/75 */;
     line-height: 1.173333rem /* 88/75 */;
     float:left;
-    margin-right: .133333rem /* 10/75 */;
+    margin-right: .133333rem;
 }
 .jinbi ul li img{
     width: .466667rem /* 35/75 */;
     height: .466667rem /* 35/75 */;
+    margin-top:0.3rem;
 }
 .jinbi ul li img.jiantou{
     width: .333333rem /* 25/75 */;
+    margin-top:0.3rem;
 }
 </style>

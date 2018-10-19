@@ -3,7 +3,7 @@
     <!-- slides -->
         <swiper-slide>
             <ul class="giftSwiper">
-                <li v-for="(item,index) in giftList1" :key="index">
+                <li v-for="(item,index) in giftList1" :key="index" :data-type="item.gift_type" :data-id="item.id" @click="xuanzhongGift($event,item.id,index,item.gift_type)">
                     <img :src="'http://www.xiuktv.com/live/images/'+item.icon" alt=""><br>
                     <b>{{item.name}}</b><br>
                     <i>{{item.price}}金币</i>
@@ -11,8 +11,8 @@
             </ul>
         </swiper-slide>
         <swiper-slide>
-            <ul class="giftSwiper">
-                <li v-for="(item,index) in giftList2" :key="index">
+            <ul class="giftSwiper"> 
+                <li v-for="(item,index) in giftList2" :key="index" :data-type="item.gift_type" :data-id="item.id" @click="xuanzhongGift($event,item.id,index,item.gift_type)">
                     <img :src="'http://www.xiuktv.com//live/images/'+item.icon" alt=""><br>
                     <b>{{item.name}}</b><br>
                     <i>{{item.price}}金币</i>
@@ -21,7 +21,7 @@
         </swiper-slide>
         <swiper-slide>
             <ul class="giftSwiper">
-                <li v-for="(item,index) in giftList3" :key="index">
+                <li v-for="(item,index) in giftList3" :key="index" :data-type="item.gift_type" :data-id="item.id" @click="xuanzhongGift($event,item.id,index,item.gift_type)">
                     <img :src="'http://www.xiuktv.com//live/images/'+item.icon" alt=""><br>
                     <b>{{item.name}}</b><br>
                     <i>{{item.price}}金币</i>
@@ -30,7 +30,7 @@
         </swiper-slide>
         <swiper-slide>
             <ul class="giftSwiper">
-                <li v-for="(item,index) in giftList4" :key="index">
+                <li v-for="(item,index) in giftList4" :key="index" :data-type="item.gift_type" :data-id="item.id" @click="xuanzhongGift($event,item.id,index,item.gift_type)">
                     <img :src="'http://www.xiuktv.com//live/images/'+item.icon" alt=""><br>
                     <b>{{item.name}}</b><br>
                     <i>{{item.price}}金币</i>
@@ -39,7 +39,7 @@
         </swiper-slide>
         <swiper-slide>
             <ul class="giftSwiper">
-                <li v-for="(item,index) in giftList5" :key="index">
+                <li v-for="(item,index) in giftList5" :key="index" :data-type="item.gift_type" :data-id="item.id" @click="xuanzhongGift($event,item.id,index,item.gift_type)">
                     <img :src="'http://www.xiuktv.com//live/images/'+item.icon" alt=""><br>
                     <b>{{item.name}}</b><br>
                     <i>{{item.price}}金币</i>
@@ -53,6 +53,8 @@
 
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import zbRoomVue from './zbRoom.vue';
+import AppVue from '../App.vue';
     export default {
         data() {
             return {
@@ -61,30 +63,32 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
                 giftList3:[],
                 giftList4:[],
                 giftList5:[],
+                xuanzhong_active:"",
                 swiperOption: {
-                // NotNextTick is a component's own property, and if notNextTick is set to true, the component will not instantiate the swiper through NextTick, which means you can get the swiper object the first time (if you need to use the get swiper object to do what Things, then this property must be true)
-                // notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
-                notNextTick: true,
-                // swiper configs 所有的配置同swiper官方api配置
-                autoplay: false,//自动轮播
-                setWrapperSize :true,//说明：开启这个设定会在Wrapper上添加等于slides相加的宽高，在对flexbox布局的支持不是很好的浏览器中可能需要用到
-                loop:false,//、是否循环播放
-                pagination:{el: '.swiper-pagination'}//添加分页器
+                    // NotNextTick is a component's own property, and if notNextTick is set to true, the component will not instantiate the swiper through NextTick, which means you can get the swiper object the first time (if you need to use the get swiper object to do what Things, then this property must be true)
+                    // notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+                    notNextTick: true,
+                    // swiper configs 所有的配置同swiper官方api配置
+                    autoplay: false,//自动轮播
+                    setWrapperSize :true,//说明：开启这个设定会在Wrapper上添加等于slides相加的宽高，在对flexbox布局的支持不是很好的浏览器中可能需要用到
+                    loop:false,//、是否循环播放
+                    pagination:{el: '.swiper-pagination'}//添加分页器
                 }
             }
         },
         created(){
             let that = this;
+            
             //请求直播间礼品列表
             that.$http.get("/api/xcbb_web/common/room/tools",{
             params:{
-                    uid: "20264733",     //20264733
-                    token:"TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA==" ,   //"TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA==  ",
+                    uid: "10000022",     //20264733
+                    token:"TVRBd01EQXdNakxDcDJ0ck4yb3pZbXhuTW1NeE5EazBPVEUwTURFNE1UWTJ3cWN4TlRReE56UXpNVEk0TlRFMQ==" ,   //"TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA==  ",
                     category1: 1,
                     category2: 17
                             }          
             }).then(res=>{
-                console.log(res.data.body)
+                // console.log(res.data.body)
                 for(let i=0; i<res.data.body.length; i++){
                     if(i<8){
                         that.giftList1.push(res.data.body[i])
@@ -120,7 +124,20 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
                 console.log(res);
             })
         },
+        methods:{
+            xuanzhongGift(e,id,index,type){
+                let lis = document.getElementsByTagName("li")
+                for(let i = 0;i<lis.length;i++){
+                    lis[i].style = "background:none"
+                }
+                AppVue.giftData.id = e.currentTarget.getAttribute("data-id"),
+                AppVue.giftData.type = e.currentTarget.getAttribute("data-type")
+                e.currentTarget.style = "background: linear-gradient(to left, #fff, #fff) left top no-repeat, linear-gradient(to bottom, #fff, #fff) left top no-repeat, linear-gradient(to left, #fff, #fff) right top no-repeat,linear-gradient(to bottom, #fff, #fff) right top no-repeat, linear-gradient(to left, #fff, #fff) left bottom no-repeat,linear-gradient(to bottom, #fff, #fff) left bottom no-repeat,linear-gradient(to left, #fff, #fff) right bottom no-repeat,linear-gradient(to left, #fff, #fff) right bottom no-repeat;background-size: 1px 20px, 20px 1px, 1px 20px, 20px 1px;"
+            },
+            
+        },
         components:{swiper, swiperSlide}
+        
     }
 </script>
 
@@ -141,6 +158,9 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
         margin-bottom: 1%;
         /* background: #f90; */
         overflow: hidden;
+        box-sizing: border-box;
+        /* border: .026667rem 2/75 solid rgb(); */
+        
     }
     .giftSwiper li img{
         width: .866667rem /* 65/75 */;
