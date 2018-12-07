@@ -6,7 +6,7 @@
             </p>
             <span>{{nick}}</span><br>
             <i>余额：</i>
-            <b> {{goodsData.coin_balance}}金币</b>
+            <b> {{jinBiYue}}金币</b>
         </div>
         <div class="jiageList">
             <p>选择充值金额：</p>
@@ -41,7 +41,8 @@ export default {
             isChonghzi:true,
             photo:null,
             nick:"",
-            goodsData:null,
+            goodsData:{},
+            jinBiYue:0
         }
     },
     created(){
@@ -49,7 +50,6 @@ export default {
         let goodsListUrl = AppVue.data().baesUrl+"xcbb_web/business/mobile/billing/list/goods"
         that.nick = AppVue.userInfo.nick
         that.photo = AppVue.userInfo.photo
-        console.log(goodsListUrl);
         this.$http.get(goodsListUrl,{
             params:{
                 uid:10000022,
@@ -59,6 +59,7 @@ export default {
         }).then((res)=>{
             // console.log(res.data);
             that.goodsData = res.data;
+            that.jinBiYue =  res.data.coin_balance
         }).catch((res)=>{
 
         })

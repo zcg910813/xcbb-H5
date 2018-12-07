@@ -11,7 +11,6 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-<<<<<<< HEAD
       '/api':{
         target:"https://www.xiuKtv.com/",//需要请求的第三方接口
         changeOrigin:true,
@@ -23,19 +22,6 @@ module.exports = {
 
     // Various Dev Server settings
     host: '192.168.11.161' ,//'192.168.11.139', // can be overwritten by process.env.HOST
-=======
-      // '/api':{
-      //   target:"https://www.xcbobo.com/",//需要请求的第三方接口
-      //   changeOrigin:true,
-      //   pathRewrite:{ //路径重写
-      //     "^/api":"/"
-      //   }
-      // }
-    },
-
-    // Various Dev Server settings
-    host: 'localhost' ,//'192.168.11.139', // can be overwritten by process.env.HOST
->>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
