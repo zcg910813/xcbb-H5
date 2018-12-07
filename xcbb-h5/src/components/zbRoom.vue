@@ -1,18 +1,33 @@
 <template>
     <div class="zbRoom" >  
         <!-- vue直播播放组件 -->
+<<<<<<< HEAD
         <div class="player" :style="{height:ht}">
           <video-player  class="video-player vjs-custom-skin"
+=======
+        <!-- <div class="player"> -->
+            <video-player  class="player video-player vjs-custom-skin"
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
                      ref="videoPlayer"
                      x5-playsinline="true"
                      :playsinline="true"
                      :options="playerOptions">
+<<<<<<< HEAD
           </video-player>
         </div>
         
         <!-- 直播间信息功能展示 -->
           <!-- <div class="banner" v-if="true">
           </div> -->
+=======
+            </video-player>
+        <!-- </div> -->
+        
+        直播间信息功能展示
+        <div class="roomShow">
+          <div class="banner" v-if="false">
+          </div>
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
           <div class="zbInfo">
             <p class="photo">
               <img :src="imgUrl+'PubImgSour/'+photoUrl+'.png'" alt="">
@@ -27,9 +42,15 @@
           </div>
           <div class="onlineUsers">
             <ul>
+<<<<<<< HEAD
               <li v-for="(item,index) in onlineUser" :key="index">
                 <img :src="imgUrl+'PubImgSour/'+item.photo+'.png'" alt="">
               </li>
+=======
+              <!-- <li v-for="(item,index) in onlineUser" :key="index">
+                <img :src="'http://image.xcbobo.com/PubImgSour/'+item.photo+'.png'" alt="">
+              </li> -->
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
             </ul>
           </div>
           <div class="xcId">
@@ -221,7 +242,11 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import {strToArray,transform_u8,headPacking,typeConvert,untieHead} from "@/js/socket"; 
+=======
+import {strToArray} from "@/js/socket" 
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
 import { videoPlayer } from 'vue-video-player';
 import giftList from '@/components/giftList'
 import toPay from '@/components/toPay'
@@ -234,6 +259,7 @@ export default {
       ht:"",
       imgUrl:"http://www.xiuktv.com/",  
       zbroomInfo:null,            //当下主播直播间信息
+<<<<<<< HEAD
       ws_zbroomInfo:null,         //socket直播间长连接信息
       LiaotianList:[],            //聊天广播数据列表
       onlineUser:[],              //在线用户列表
@@ -243,6 +269,10 @@ export default {
       isFollowText:"",            //按钮显示
       isSocketOnline:1,           //判断是否主动关闭socket
       photoUrl:this.zbroomInfo.photo,
+=======
+      onlineUser:[],
+      photoUrl:this.zbroomInfo.headimgurl,
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
       zbName:this.zbroomInfo.zbname,
       populary:this.zbroomInfo.populary,
       zbid:this.zbroomInfo.zbid,
@@ -256,6 +286,7 @@ export default {
       sunShow:false,              //阳光显示控制
       sungiftList:[],
       giftTexiao:"margin-left:-10rem",
+<<<<<<< HEAD
       isDanMuTexiao:true,         //控制弹幕显示
       danMuList:[],
       danmuTexiao:"margin-left: 10rem",
@@ -267,6 +298,10 @@ export default {
       shengYuJinbi:0,             //用户剩余金币总数
       shengYuSun:0,               //用户剩余阳光总数
       isSunTexiao:false,
+=======
+      danmuTexiao:"margin-left:10rem",
+      src: this.zbroomInfo.rtmbUrl, 
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
       playerOptions: {
 //        playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
         autoplay: false, //如果true,浏览器准备好时开始回放。
@@ -276,14 +311,24 @@ export default {
         language: 'zh-CN',
         aspectRatio: '9:16', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
         fluid: false, // 当true时，Video.js player
+<<<<<<< HEAD
+=======
+        
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
         sources: [{
           type: "application/x-mpegURL",
           src: this.zbroomInfo.rtmbUrl, //'http://3286.liveplay.myqcloud.com/live/3286_81f3fd243bb377fda3b65fc5f1555ca4.m3u8',
           withCredentials: true,//"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" //你的视频地址（必填）
         }],
+<<<<<<< HEAD
         poster: 'http://www.xiuktv.com/PubImgSour/'+this.zbroomInfo.photo+'.png', //你的封面地址
         width: "100%",
         height: "100%",
+=======
+        poster: "poster.jpg", //你的封面地址
+        // width: "auto",
+        // height: "auto",
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
         notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
        controlBar: {
          timeDivider: false,
@@ -295,7 +340,27 @@ export default {
     }
   },
   beforeCreate(){
+<<<<<<< HEAD
     var that = this; 
+=======
+    
+    let that = this;
+    setTimeout(function(){
+      that.giftTexiao = "margin-left:0.3rem";
+      setTimeout(function(){
+        that.giftTexiao = "margin-left:0.3rem;margin-top:-1.5rem"
+      },3000)
+    },2000)
+    
+    setInterval(function(){
+      that.danmuTexiao = "margin-left:-10rem"
+      if(that.danmuTexiao == "margin-left:-10rem"){
+        // setTimeout(function(){
+        //   that.danmuTexiao = "margin-left:10rem"
+        // },7000)
+      }
+    },7000)
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
     
     //获取上级选中的主播直播间信息
     that.zbroomInfo = that.$route.params.zbroomInfo;
@@ -332,6 +397,7 @@ export default {
       console.log(res)
     })
     //请求直播间在线用户列表信息(后台暂时重写接口)
+<<<<<<< HEAD
     let roomid = this.zbroomInfo.cid   //&roomid=389365
     let qs = require('qs');
     that.$http.post("/api/xcbb_web/business/mobile/guard/liveUserOnline?uid=10000022&token=TVRBd01EQXdNakxDcDJ0ck4yb3pZbXhuTW1NeE5EazBPVEUwTURFNE1UWTJ3cWN4TlRReE56UXpNVEk0TlRFMQ==&zid=20196339",
@@ -341,10 +407,19 @@ export default {
         "zid":this.zbroomInfo.zbid
         })
     ).then(res=>{
+=======
+    that.$http.post("/api/xcbb_web/business/mobile/guard/userOnline?uid=20264733&token=TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA==&zid=20196339&roomid=395090",
+      {
+
+      }
+    ).then(res=>{
+      console.log(res.data.onLineDatas);
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
       let users = []; 
       for(let i=0;i<8;i++){
         users.push(res.data.onLineDatas[i])
       }
+<<<<<<< HEAD
       that.onlineUser = users
     }).catch((res)=>{
       console.log(res)
@@ -481,6 +556,15 @@ export default {
                           xintiao();
                         },15000)
                       }
+=======
+      console.log(users)
+      that.onlineUser = users
+    })
+
+    //socket 消息序列化方法
+    console.log();
+    
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
 
                       if(res.uri == roomGuangBoId){
                         let strlength = typeConvert(arrbuffer).u32(17);
@@ -772,6 +856,7 @@ export default {
     //弹出礼品列表
     gift(){
       this.giftShow = !this.giftShow
+      console.log(this.giftShow)
     },
     //隐藏礼品列表
     unGift(){
@@ -790,18 +875,33 @@ export default {
       }
     },
     //点击跳转充值金币页面
+<<<<<<< HEAD
     toJinBi(){
       this.isChongzhi = true;
       let toPay = document.getElementsByClassName("toPay");
       toPay[0].style.display = "block"
+=======
+    jinBi(){
+      this.$router.push({
+        name:"toPay",
+        params:{}
+      })
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
     },
     //复制下载链接地址
     downLoad(){
       let herf  =  "www.baidu.com"
       this.$copyText(herf).then(function (e) {
           alert("下载地址复制成功，请前往浏览器下载！");
+<<<<<<< HEAD
         }, function (e) {
           alert('下载链接复制失败！请重试')
+=======
+          console.log(e)
+        }, function (e) {
+          alert('下载链接复制失败！')
+          console.log(e)
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
         })
     },
   },
@@ -831,8 +931,12 @@ export default {
    height: 80%;
    position: absolute;
    left: 0;
+<<<<<<< HEAD
    top: 0; /* 1334/75 */;
    overflow: hidden;
+=======
+   top: -16.3rem /* 1334/75 */;
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
  }
  /* .banner,.zbInfo,.onlineUsers{
    float: left;
@@ -907,6 +1011,7 @@ export default {
    color:#fff;
  }
  .onlineUsers{
+<<<<<<< HEAD
    position: absolute;
    left: 4.266667rem /* 320/75 */;
    top: 1.2rem;
@@ -914,6 +1019,12 @@ export default {
    height: .853333rem /* 64/75 */;
    /* background: rgba(0,0,0,0.2); */
    /* margin-top: .133333rem 10/75; */
+=======
+   width: 4.666667rem /* 350/75 */;
+   height: .853333rem /* 64/75 */;
+   /* background: rgba(0,0,0,0.2); */
+   margin-top: .08rem /* 6/75 */;
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
    margin-left: .933333rem /* 70/75 */;
    overflow-x: scroll;
  }
@@ -975,7 +1086,11 @@ export default {
    width:  4rem /* 300/75 */;
    height: 3.8rem /* 285/75 */;
    /* background: rgba(0, 0, 0, 0.2); */
+<<<<<<< HEAD
    overflow: scroll;
+=======
+   overflow: hidden;
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
  }
  .gift .giftTexiao{
    width: 4rem /* 300/75 */;
@@ -1149,6 +1264,7 @@ export default {
    width: 7.386667rem /* 554/75 */;
    height: 3.666667rem /* 275/75 */;
    margin-top: .266667rem /* 20/75 */;
+<<<<<<< HEAD
    overflow:scroll;
    /* background: rgba(0, 0, 0, 0.2); */
  }
@@ -1188,6 +1304,9 @@ export default {
  .speak ul li u{
    color:#fff;
    font-size: .4rem /* 30/75 */;
+=======
+   /* background: rgba(0, 0, 0, 0.2); */
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
  }
  .footbtnList{
    position: absolute;

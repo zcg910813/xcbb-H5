@@ -5,9 +5,13 @@ import App from './App'
 import router from './router'
 import './css/mian.css'
 import './js/flexible'
+<<<<<<< HEAD
 import './js/socket'    //socket 相关
 
 // 引入轮播插件
+=======
+import './js/socket'
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper)
@@ -27,9 +31,13 @@ Vue.use(VideoPlayer);
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
+<<<<<<< HEAD
 //引入微信sdk
 import wx from 'weixin-js-sdk'
 Vue.prototype.$wx = wx;
+=======
+Vue.prototype.$http= axios;
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
 
 Vue.config.productionTip = false
 

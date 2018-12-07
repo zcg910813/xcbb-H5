@@ -21,7 +21,10 @@
 <script>
     import {strToArray,transform_u8,headPacking,typeConvert,untieHead} from "@/js/socket"; 
     import mySwiper from '@/components/mySwiper';       
+<<<<<<< HEAD
     import AppVue from '../App.vue';
+=======
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
     export default{
         data(){
             return {
@@ -85,6 +88,7 @@
             // console.log(AppVue.data.ws)
             AppVue.data.ws.onopen = function(){
                 console.log("连接已成功");
+<<<<<<< HEAD
                 let head = headPacking(23,1,0,200,0)         //消息封包方法  其中消息体再方法本身内容里
                 let a = strToArray().StringToUint32Array(200811040);
                 let b = strToArray().StringToUint32Array(5295391642);
@@ -138,6 +142,49 @@
                         let loginArr = new Uint8Array(head.concat(a,b,c,d,e,f,g,h,i,j)) 
                         let loginMsg =  transform_u8(loginArr,0);
                         AppVue.data.ws2.send(loginMsg)
+=======
+
+                let message = headPacking(23,1,0,200,0)
+                // let l = strToArray().StringToUint32Array(23)
+                // let h = strToArray().StringToUint32Array(1);
+                // let u = strToArray().StringToUint16Array(0);
+                // let r = strToArray().StringToUint16Array(200);
+                // let t =  strToArray().StringToUint8Array(0);
+                // let a = strToArray().StringToUint32Array(200811040);
+                // let b = strToArray().StringToUint32Array(5295391642);
+                // let c = strToArray().StringToUint16Array(4);
+                // let messageData = [];
+                // let message1 =new Uint8Array(messageData.concat(l,h,u,r,t,a,b,c)) ;
+
+                // console.log(message1);
+
+                
+                ws.send(message);
+            }
+            ws.addEventListener("message", function(res) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var arrbuffer = e.target.result;
+                    untieHead(arrbuffer,function(res){
+                        console.log(res)
+                    })
+                   var strlength = typeConvert(arrbuffer).u16(13);
+                   var strneirong = new Uint8Array(arrbuffer,15,strlength);
+                   console.log(strlength)
+                   typeConvert(arrbuffer).Uint8ArrayToString(strneirong,function(res){
+                        console.log(res)
+                   })
+                  console.log(typeConvert(arrbuffer).u16(33,2,function(res){
+                    console.log(res)
+                  }))                    
+                    // console.log('affbufer',arrbuffer)
+                }; 
+                reader.readAsArrayBuffer(res.data);
+
+                
+                // // 处理数据
+            });
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
 
                         //发送周期性心跳
                         setInterval(()=>{
@@ -184,8 +231,12 @@
             
             
             //请求热门主播列表
+<<<<<<< HEAD
             that.$http.post('/api/xcbb_web/mobileLive/tabHot?uid=10000022&token=TVRBd01EQXdNakxDcDJ0ck4yb3pZbXhuTW1NeE5EazBPVEUwTURFNE1UWTJ3cWN4TlRReE56UXpNVEk0TlRFMQ==&sex=1&province=beijing&type=3&packageName=release&version=1.4.11&channel=dev&clientType=2&page=1&pageSize=16',
                 //uid=90000146  token=T1RBd01EQXhORGJDcDI1Nk4yRnZlbVJ1ZUhjeE5USXdNekkyTmpVeE9ESTR3cWN4TlRNME1UUTROVFU1TnpBeQ==
+=======
+            that.$http.post('../xcbb_web/mobileLive/searchRecentUserLiveResult?uid=90000146&token=T1RBd01EQXhORGJDcDI1Nk4yRnZlbVJ1ZUhjeE5USXdNekkyTmpVeE9ESTR3cWN4TlRNME1UUTROVFU1TnpBeQ==&sex=1&province=beijing&type=3&packageName=release&version=1.4.11&channel=dev&clientType=2&page=1&pageSize=16',
+>>>>>>> cc1772d9085cc8e7f5fc83ebbc50e7914a393e92
                 //"/api/xcbb_web/mobileLive/tabHot?packageName=release&clientType=2&token=T1RBd01EQXhORGJDcDI1Nk4yRnZlbVJ1ZUhjeE5USXdNekkyTmpVeE9ESTR3cWN4TlRNME1UUTROVFU1TnpBeQ==&version=1.4.11&uid=90000146&channel=dev&page=1&pageSize=20",
                 {
                     // params:{
