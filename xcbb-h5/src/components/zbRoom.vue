@@ -14,7 +14,7 @@
           <!-- <div class="banner" v-if="true">
           </div> -->
           <div class="zbInfo">
-            <p class="photo">
+            <p class="photo" @click="openZBSmallKa">
               <img :src="imgUrl+'PubImgSour/'+photoUrl+'.png'" alt="">
             </p>
             <p class="name">  
@@ -27,7 +27,7 @@
           </div>
           <div class="onlineUsers">
             <ul>
-              <li v-for="(item,index) in onlineUser" :key="index">
+              <li v-for="(item,index) in onlineUser" :key="index" @click="openYHSmallKa">
                 <img :src="imgUrl+'PubImgSour/'+item.photo+'.png'" alt="">
               </li>
             </ul>
@@ -212,8 +212,85 @@
           <img src="@/assets/img/zbRoom/阳光@2x.png" />
         </div>
         //小资料卡
-        <div class="smallKa">
-
+        <div class="smallKa" v-show="IsSmallka">
+          <p class="smallKaOff" @click="offSmallKa"></p>
+          <div class="photoBox">
+            <p>
+              <img src="" alt="">
+            </p>
+          </div>
+          <div class="ZhuBo" v-show="IsZhuBo">
+            <div class="NickSex">
+              <p> 
+                <i>奶茶吖</i>
+                <img src="" alt="">
+              </p>
+            </div>
+            <div class="dengJi">
+              <div class="caiFuLv"></div>
+              <div class="yangGuangLv"></div>
+            </div>
+            <div class="qiTa">
+              <i>江门</i>
+              <i style="margin-left:.466667rem /* 35/75 */">ID：223332342</i>
+              <i style="margin-left:.266667rem /* 20/75 */">粉丝：83</i>
+            </div>
+            <div class="qianMingBox">
+              <p>得不到永远在骚动被偏爱的却有恃无恐。</p>
+            </div>
+            <div class="ZhouXing">
+              <p style="margin-left:2.666667rem /* 200/75 */;">
+                <img src="" alt="">
+                魅力15
+              </p>
+              <p>
+                <img src="" alt="">
+                周星0次
+              </p>
+              <ul>
+                <li>今日魅力</li>
+                <li>双周魅力</li>
+                <li>双月魅力</li>
+              </ul>
+            </div>
+            <div class="xiangCe">
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+          <div class="YongHu" v-show="!IsZhuBo">
+            <div class="BanghuiNick">
+              <i>&lt;楚霸王&gt;</i>
+              <i>百味人生&gt;</i>
+              <i></i>
+            </div>
+            <div class="YHDengJ"></div>
+            <div class="YHdiZhiId">
+              <i>抚顺市</i>
+              <i>ID：20190645</i>
+            </div>
+            <div class="YHqianMing">
+              <p>还没有填写签名哦</p>
+            </div>
+            <ul class="rongYao">
+              <li>荣耀130</li>
+              <li>战力4095</li>
+              <li>暂无坐骑</li>
+              <li>今日贡献</li>
+              <li>双周贡献</li>
+              <li>双月贡献</li>
+            </ul>
+          </div>
+          <div class="btnsBox">
+              <i>+关注</i>
+              <i>@Ta</i>
+            </div>
         </div>
         //支付页面
         <toPay v-show="isChongzhi" />
@@ -266,7 +343,9 @@ export default {
       isChongzhi:false,           //控制充值页面的显示
       shengYuJinbi:0,             //用户剩余金币总数
       shengYuSun:0,               //用户剩余阳光总数
-      isSunTexiao:false,
+      isSunTexiao:false,          //控制阳光掉落特效
+      IsSmallka:false,            //控制小资料卡显示
+      IsZhuBo:"",                 //判断小资料卡是否是主播
       playerOptions: {
 //        playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
         autoplay: false, //如果true,浏览器准备好时开始回放。
@@ -552,7 +631,7 @@ export default {
                           that.shengYuJinbi = roomGuangBoData.money;
                           that.shengYuSun = roomGuangBoData.totalSun;
                         }else if(roomGuangBoData.cmd == "BSendBarrage"){
-                          console.log(roomGuangBoData)
+                          // console.log(roomGuangBoData)
                           that.danMuList.push(roomGuangBoData)
                           that.LiaotianList.push(roomGuangBoData)
                           setTimeout(()=>{
@@ -804,6 +883,32 @@ export default {
         }, function (e) {
           alert('下载链接复制失败！请重试')
         })
+    },
+    openZBSmallKa(){
+      let that = this;
+      that.IsSmallka = true;
+      that.IsZhuBo = true;
+      let url = "https://www.xiuktv.com/"+"xcbb_web/business/mobile/api/queryOtherInfo"
+      let qs = require('qs');
+      that.$http.post(url+"?uid=10000022&token=TVRBd01EQXdNakxDcDJ0ck4yb3pZbXhuTW1NeE5EazBPVEUwTURFNE1UWTJ3cWN4TlRReE56UXpNVEk0TlRFMQ==",
+      //uid=20264733&token=TWpBeU5qUTNNelBDcHpOamF6aDJjWFF5TUdveE5UTXpOVE0yTXpJNE5qQXp3cWN4TlRNek5UTTJNekk0TmpZNA==
+        qs.stringify({ 
+          'roomId': that.$route.params.zbroomInfo.cid,
+          "fid": that.$route.params.zbroomInfo.zbid,
+          "queryType":1
+          })
+      ).then((res)=>{
+        console.log(res.data);
+      })
+    },
+    openYHSmallKa(){
+      let that = this;
+      that.IsSmallka = true;
+      that.IsZhuBo = !true;
+    },
+    offSmallKa(){
+      let that = this;
+      that.IsSmallka = false;
     },
   },
 }
@@ -1430,9 +1535,184 @@ export default {
   }
   /* 小资料卡 */
   .smallKa{
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
+    width: 10rem;
+    /* height: 10rem; */
+    background:rgba(42,31,48,0.95);
+  }
+  .smallKa .smallKaOff{
+    width: 10rem;
+    height: 5rem;
+    margin-top: -5rem;
+    background: rgba(0,0,0,0);
+  }
+  .smallKa .photoBox{
+    margin-top: -.7rem /* 52.5/75 */;
+    margin-bottom: .266667rem /* 20/75 */;
+  }
+  .smallKa .photoBox p{
+    width: 1.4rem /* 105/75 */;
+    height: 1.4rem /* 105/75 */;
+    margin: 0 auto;
+    border:.066667rem /* 5/75 */ solid rgb(165,117,131);
+    border-radius: 50%;
+    background: #f90;
+  }
+  .ZhuBo{
+    width: 10rem;
+  }
+  .ZhuBo .NickSex{
+    width: 10rem;
+    margin-bottom: .133333rem /* 10/75 */;
+  }
+  .ZhuBo .NickSex p{
+    width: 3.466667rem /* 260/75 */;
+    margin:0 auto;
+    text-align: center;
+    font-size:.466667rem /* 35/75 */;
+  }
+  .ZhuBo .dengJi{
+    width: 10rem;
+    overflow: hidden;
+    margin-bottom: .133333rem /* 10/75 */;
+  }
+  .ZhuBo .dengJi .caiFuLv,.yangGuangLv{
+    float: left;
+    width: 3.2rem /* 240/75 */;
+    height: .693333rem /* 52/75 */;
+    background: #f90;
+  }
+  .caiFuLv{
+    margin-left:1.6rem /* 120/75 */;
+  }
+  .yangGuangLv{
+    margin-left: .333333rem /* 25/75 */;
+  }
+  .ZhuBo .qiTa{
+    width: 10rem;
+    text-align: center;
+    margin-bottom: .266667rem /* 20/75 */;
+  }
+  .ZhuBo .qiTa i{
+    display: inline-block;
+    font-size: .333333rem /* 25/75 */;
+    color:rgb(156,157,160);
+  }
+  .ZhuBo .qianMingBox{
+    width: 10rem;
+    margin-bottom: .266667rem /* 20/75 */;
+  }
+  .ZhuBo .qianMingBox p{
+    margin: 0 auto;
+    width: 3.733333rem /* 280/75 */;
+    line-height: .426667rem /* 32/75 */;
+    font-size:.4rem /* 30/75 */;
+    color:rgb(156,157,160);
+  }
+  .ZhuBo .ZhouXing{
+    width: 10rem;
+    text-align: center;
+    color:rgb(203,188,133);
+    font-size:.4rem /* 30/75 */;
+    
+  }
+  .ZhouXing p,ul,li{
+    float: left;
+  }
+  .ZhouXing p{
+    width: 2.266667rem /* 170/75 */;
+    margin-bottom: .133333rem /* 10/75 */;
+  }
+  .ZhouXing ul{
+    overflow: hidden;
+    width: 10rem;
+    margin-bottom: .266667rem /* 20/75 */;  
+  }
+  .ZhouXing ul li{
+    width: 3.2rem /* 240/75 */;
+    line-height: .866667rem /* 65/75 */;
+    margin-left: .133333rem /* 10/75 */;
+    background: rgb(28,21,39);
+    border:.026667rem /* 2/75 */ solid rgb(53,40,57);
+    box-sizing: border-box;
+  }
+  .ZhuBo .xiangCe{
+    width: 10rem;
+    height: 2.066667rem /* 155/75 */;
+    overflow: scroll;
+  }
+  .xiangCe ul{
+    width: 16rem /* 1200/75 */;
+    height: 2.066667rem /* 155/75 */;
+    overflow: hidden;
+  }
+  .xiangCe ul li{
+    float: left;
+    width: 2.213333rem /* 166/75 */;
+    height: 2.066667rem /* 155/75 */;
+    background: #f90;
+    margin-right: .066667rem /* 5/75 */;
+  }
+  .YongHu{
+    width: 10rem;
+    overflow: auto;
+    text-align: center;
+  }
+  .BanghuiNick{
+    font-size: .4rem /* 30/75 */;
+    margin-bottom: .266667rem /* 20/75 */;
+  }
+  .YHDengJ{
+    width: 4.666667rem /* 350/75 */;
+    height: .666667rem /* 50/75 */;
+    background: #f90;
+    margin: 0 auto;
+    margin-bottom: .133333rem /* 10/75 */;
+  }
+  .YHdiZhiId{
+    margin-bottom: .266667rem /* 20/75 */;
+  }
+  .YHdiZhiId i{
+    color:rgb(156,157,160);
+    font-size: .333333rem /* 25/75 */; 
+  }
+  .YHqianMing{
+    color:rgb(156,157,160);
+    font-size: .4rem /* 30/75 */;
+    margin-bottom: .266667rem /* 20/75 */;
+  }
+  .rongYao{
+    width: 9.2rem /* 690/75 */;
+    height: 2.133333rem /* 160/75 */;
+    margin-left: .4rem /* 30/75 */;
+  }
+  .rongYao li{
+    float: left;
+    width: 2.906667rem /* 218/75 */;
+    height: .813333rem /* 61/75 */;
+    line-height: .813333rem /* 61/75 */;
+    margin-left: .133333rem /* 10/75 */;
+    margin-bottom: .266667rem /* 20/75 */;
+    background: rgb(25,18,36);
+    font-size: .426667rem /* 32/75 */;
+    color: rgb(215,184,137);
+  }
+  .btnsBox{
+    width: 10rem;
+    height: 1.333333rem /* 100/75 */;
+    border-top: .026667rem /* 2/75 */ solid rgb(116,107,124);
+    box-sizing: border-box;
+  }
+  .btnsBox i{
+    display: inline-block;
+    width: 1.6rem /* 120/75 */;
+    line-height: 1.333333rem /* 100/75 */;
+    text-align: center;
+    font-size: .4rem /* 30/75 */;
+    color:rgb(249,254,255);
+    margin-left:2.133333rem /* 160/75 */;
   }
 </style>
 
